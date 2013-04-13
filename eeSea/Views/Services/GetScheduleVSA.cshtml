@@ -1,0 +1,255 @@
+﻿@model eeSea.Models.ViewModels.ServiceViewModel
+@{
+    Layout = null;
+  
+}
+<link href="@Url.Content("~/Content/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+ 
+<script type="text/javascript" src="@Url.Content("~/Scripts/i18n/grid.locale-en.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")"></script>
+<table width="90%" height="520px" border="0" align="left" class=" ui-widget ui-widget-content ui-corner-all">
+    <tr>
+        <td colspan="5" valign="top" height="35px" align="left">
+            <h3 class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                @Html.DisplayFor(model => model.ServiceCode) / @Html.DisplayFor(model => model.ServiceName)</h3>
+        </td>
+    </tr>
+    <tr align="left">
+        <td width="20%" height="35px">
+            <b>Service Name</b>
+        </td>
+        <td width="20%">@Html.DisplayFor(model => model.ServiceName)
+        </td>
+        <td colspan="3" align="right">
+            <input type="button" class="btn-cmd ui-button ui-widget ui-state-default ui-corner-all "
+                value="<< Back" id="btnBack" />&nbsp;
+        </td>
+    </tr>
+    <tr align="left">
+        <td height="35px">
+            <b>Service Code</b>
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.ServiceCode)
+        </td>
+        <td>
+            <b></b>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr align="left">
+        <td height="35px">
+            <b>Frequency</b>
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Frequency)
+        </td>
+        <td>
+            <b></b>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr align="left">
+        <td height="35px">
+            <b>Valid From</b>
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.StartDate)
+        </td>
+        <td>
+            <b>Valid To</b>
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.EndDate)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <table width="100%">
+                <tr>
+                    <td>
+                        <table class="List" align="left" id="ListItems" width="100" border="1">
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+                                        Carrier
+                                    </th>
+                                    <th scope="col">
+                                        Marketing Code
+                                    </th>
+                                    <th scope="col">
+                                        Marketing Name
+                                    </th>
+                                    <th>
+                                        Avg eff cap
+                                    </th>
+                                    <th scope="col">
+                                        Percentage Share
+                                    </th>
+                                    <th>
+                                        Avg Share
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int i = 0;
+
+                                    List<eeSea.Models.ViewModels.VSADeal> scheduleVSAs = (List<eeSea.Models.ViewModels.VSADeal>)ViewBag.scheduleVSAs;
+         
+                                }
+                                @foreach (eeSea.Models.ViewModels.VSADeal item in scheduleVSAs)
+                                {
+
+                                    
+              
+            
+                                    <tr id="@item.Id">
+                                        <td>@Html.DisplayFor(modelItem => item.Carrier)
+                                        </td>
+                                        <td height="25px" align="center">@Html.DisplayFor(modelItem => item.StringCode)
+                                        </td>
+                                        <td height="25px" align="center">@Html.DisplayFor(modelItem => item.StringName)
+                                        </td>
+                                        <td align="center">@ViewBag.AvgCap
+                                        </td>
+                                        <td align="center">@Html.DisplayFor(modelItem => item.Percentage)
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => item.AVGShare)
+                                        </td>
+                                    </tr>
+                                       i = i + 1;
+                                }
+                            </tbody>
+                        </table>
+                        <div id="pager" class="scroll" style="text-align: center;">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <table width="100%">
+                            <tr>
+                                <td>
+                                    <table class="List" align="left" id="ListItems2" width="100" border="1">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">
+                                                    Leg
+                                                </th>
+                                                <th scope="col">
+                                                    Seller
+                                                </th>
+                                                <th scope="col">
+                                                    Buyer
+                                                </th>
+                                                <th>
+                                                    TEUs per Sailing
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                    
+
+                                                List<eeSea.Models.ViewModels.SlotCharterView> scheduleSlotCharters = (List<eeSea.Models.ViewModels.SlotCharterView>)ViewBag.scheduleSlotCharters;
+         
+                                            }
+                                            @foreach (eeSea.Models.ViewModels.SlotCharterView item in scheduleSlotCharters)
+                                            {
+
+                                    
+              
+            
+                                                <tr id="@item.Id">
+                                                    <td>@Html.DisplayFor(modelItem => item.LocationFrom) - @Html.DisplayFor(modelItem => item.LocationTo)
+                                                    </td>
+                                                    <td>@Html.DisplayFor(modelItem => item.SlotCharterInfo.Buyer)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.SlotCharterInfo.Seller)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.SlotCharterInfo.TEU)</td>
+
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                     <div id="pager2" class="scroll" style="text-align: center;">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <script type="text/javascript">
+    //<![CDATA[
+
+    $(function () {
+
+        myGrid2 = $("#ListItems2");
+        tableToGrid(myGrid2, {
+            rowNum:10, 
+            rowList:[10,20,30], 
+            pager: '#pager', 
+            sortname: 'id', 
+            viewrecords: false, 
+            sortorder: "desc", 
+            caption:"Service Slots",
+           
+            colNames: ['Leg','Seller','Buyer', 'TEUs_per_Sailing' ],
+                    colModel: [
+                        { name: 'Leg', index: 'Leg', width: 160, align: 'center'   },
+                        { name: 'Seller', index: 'Seller', width: 120, align: 'center'  },
+                        { name: 'Buyer', index: 'Buyer', width: 120, align: 'center'  },
+                        { name: 'TEUs_per_Sailing', index: 'TEUs_per_Sailing' , width: 60 , align: 'center'    }, 
+                        ],       
+                 
+             autowidth: true,
+             height: 200,
+            forceFit: true,
+            
+            
+        });
+        $("#ListItems").trigger("reloadGrid"); 
+        //autowidth: true,
+        //width: '100%'
+
+          $('#btnBack').click(function () {
+            $.ajax({
+                url: encodeURI("@Url.Content("~/Services/ServiceInfos/" + @Model.Id + "")"),
+                success: function (data) {
+                    $('#data-grid').html(data);
+                }
+            });
+        });
+
+
+         myGrid = $("#ListItems");
+        tableToGrid(myGrid, {
+            rowNum:10, 
+            rowList:[10,20,30], 
+            pager: '#pager2', 
+            sortname: 'id', 
+            viewrecords: false, 
+            sortorder: "desc", 
+            caption:"VSAs",
+           
+            colNames: ['Id','String Code','String Name', 'Avg Cap', 'Percentage', 'AVG Share' ],
+                    colModel: [
+                        { name: 'Carrier', index: 'Carrier', width: 110, align: 'center'   },
+                        { name: 'Marketing_Code', index: 'Marketing_Code', width: 70, align: 'center'  },
+                        { name: 'Marketing_Name', index: 'Marketing_Name', width: 120, align: 'center'  },
+                        { name: 'Avg_eff_cap', index: 'Avg_eff_cap' , width: 60 , align: 'center'    },
+                         { name: 'Percentage_Share', index: 'Percentage_Share' , width: 60 , align: 'center'    },
+                        { name: 'Avg_Share', index: 'Avg_Share' , width: 60  , align: 'center'    },
+                        ],       
+                 
+             autowidth: true,
+             height: 200,
+            forceFit: true,
+            
+            
+        });
+    });
+            </script>

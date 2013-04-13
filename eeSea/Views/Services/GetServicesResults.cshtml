@@ -1,0 +1,113 @@
+﻿@model IEnumerable<eeSea.Models.ViewModels.ServiceViewModel>
+@{
+    Layout = null;
+}
+<link href="@Url.Content("~/Content/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/i18n/grid.locale-en.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.jqGrid.js")"></script>
+<script type="text/javascript">
+
+
+
+    var _gaq = _gaq || [];
+
+    _gaq.push(['_setAccount', 'UA-33927253-1']);
+
+    _gaq.push(['_setDomainName', 'eesea.com']);
+
+    _gaq.push(['_trackPageview']);
+
+
+
+    (function () {
+
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+
+    })();
+
+ 
+
+</script>
+<table class="List" align="left" id="ListItems">
+    <thead>
+        <tr>
+            <th scope="col">
+                Id
+            </th>
+            <th scope="col">
+                ServiceCode
+            </th>
+            <th scope="col">
+                ServiceName
+            </th>
+ <!--       <th scope="col">
+               Frequency
+            </th>
+            <th scope="col">
+               AvgCapacity
+            </th>   -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="@item.ServiceCode">
+             <td height="25px" align="center">@Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td height="25px" align="center">@Html.DisplayFor(modelItem => item.ServiceCode)
+                <td align="center">@Html.DisplayFor(modelItem => item.ServiceName)
+                </td>
+             <!--   <td align="center">@Html.DisplayFor(modelItem => item.Frequency)
+                </td>
+                <td align="center">@Html.DisplayFor(modelItem => item.AvgCapacity)
+                </td> -->
+            </tr>
+        }
+    </tbody>
+</table>
+<div id="pager" class="scroll" style="text-align: center;">
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+
+    $(function () {
+
+        myGrid2 = $("#ListItems");
+        tableToGrid(myGrid2, {
+            rowNum:10, 
+            rowList:[10,20,30], 
+            pager: '#pager', 
+            sortname: 'id', 
+            viewrecords: false, 
+            sortorder: "desc", 
+            caption:"Services Search Results:",
+             autowidth: true,
+             height: 400,
+            forceFit: true, 
+    //        colNames: ['Id','ServiceCode', 'CarrierName', 'ServiceName', 'Frequency', 'AvgCapacity', 'MarketingName'],
+            colNames: ['Id','ServiceCode', 'ServiceName'],
+                    colModel: [
+                        { name: 'Id', index: 'Id', hidden: true  },
+                        { name: 'ServiceCode', index: 'ServiceCode', width: 80 , align: 'center'  },
+                        { name: 'ServiceName', index: 'ServiceName' , width: 120  , align: 'center'   }
+                       // { name: 'Frequency', index: 'Frequency' , width: 70, align: 'center'     },
+                       // { name: 'AvgCapacity', index: 'AvgCapacity'  , width: 70 , align: 'center'  }
+                    ],           
+            onSelectRow: function(rowid) {
+
+                var id = $(this).getCell(rowid,0);
+                //alert("-" + id + "-");
+                $("#data-grid").html("")
+                .load(encodeURI("@Url.Content("~/Services/ServiceInfos/")" + $.trim(id)));
+                
+            }
+        });
+
+        //autowidth: true,
+        //width: '100%'
+    });
+</script>

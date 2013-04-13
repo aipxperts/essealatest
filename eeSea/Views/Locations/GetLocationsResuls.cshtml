@@ -1,0 +1,128 @@
+﻿@model IEnumerable<eeSea.Models.Location>
+@{
+    Layout = null;
+}
+<link href="@Url.Content("~/Content/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/grid.locale-en.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")"></script>
+<script type="text/javascript">
+
+
+
+    var _gaq = _gaq || [];
+
+    _gaq.push(['_setAccount', 'UA-33927253-1']);
+
+    _gaq.push(['_setDomainName', 'eesea.com']);
+
+    _gaq.push(['_trackPageview']);
+
+
+
+    (function () {
+
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+
+    })();
+
+ 
+
+</script>
+@if (Model != null)
+{ 
+    <table class="List" align="left" id="ListItems">
+        <thead>
+            <tr>
+                <th  scope="col" width="10%">
+                    Id
+                </th>
+                <th  scope="col"  width="25%">
+                    Location Code
+                </th>
+                <th  scope="col"  width="25%">
+                    Location Name
+                </th>
+                <th  scope="col"  width="20%">
+                    Location Latitude
+                </th>
+                <th  scope="col"  width="20%">
+                    Location Longitude
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr id="@item.Id">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Latitude)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Longitude)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div id="pager" class="scroll" style="text-align: center;">
+    </div> 
+}
+<script type="text/javascript">
+    //<![CDATA[
+
+    $(function () {
+
+        myGrid2 = $("#ListItems");
+        tableToGrid(myGrid2, {
+            rowNum:10, 
+            rowList:[10,20,30], 
+            pager: '#pager', 
+            sortname: 'id', 
+            viewrecords: false, 
+            sortorder: "desc", 
+            caption:"Locations Search Results:",
+            autowidth: true,
+            forceFit: true,
+           /*
+           forceFit: true,
+           viewrecords: true,
+           hidegrid: true,
+           gridview: true,
+           autowidth: true,
+           */
+            height: 450,
+            colNames: ['Id', 'Location Code', 'Location Name', 'Location Latitude', 'Location Longitude'],
+                    colModel: [
+                        { name: 'Id', index: 'Id', width: 30, hidden: true },
+                        { name: 'Location_Code', index: 'Location_Code', width: 120 },
+                        { name: 'Location_Name', index: 'Location_Name', width: 120 },
+                        { name: 'Location_Latitude', index: 'Location_Latitude', width: 120 },
+                        { name: 'Location_Longitude', index: 'Location_Longitude', width: 120 } 
+                    ],
+            onSelectRow: function(rowid) {
+
+                var id = $(this).getCell(rowid,0);
+                //alert("-" + id + "-");
+                $("#data-grid").html("")
+                .load("@Url.Content("~/Locations/LocationInfos/")" + $.trim(id));
+                
+            }
+        });
+
+        //autowidth: true,
+        //width: '100%'
+    });
+</script>

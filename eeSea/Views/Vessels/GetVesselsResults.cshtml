@@ -1,0 +1,109 @@
+﻿@model IEnumerable<eeSea.Models.Vessel>
+@{
+    Layout = null;
+}
+<link href="@Url.Content("~/Content/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/grid.locale-en.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")"></script>
+<script type="text/javascript">
+
+
+
+    var _gaq = _gaq || [];
+
+    _gaq.push(['_setAccount', 'UA-33927253-1']);
+
+    _gaq.push(['_setDomainName', 'eesea.com']);
+
+    _gaq.push(['_trackPageview']);
+
+
+
+    (function () {
+
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+
+    })();
+
+ 
+
+</script>
+ <table class="List" align="left" id="ListItems">
+    <thead>
+        <tr>
+            <th   scope="col"  width="25%">Id</th>
+            <th   scope="col"  width="25%">Vessel Name</th>
+            <th   scope="col"  width="25%">Owner</th>
+            <th  scope="col"  width="25%">Operator</th>
+            <th  scope="col"  width="25%">IMO Hull Code</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="@item.Id">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VesselName.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VesselOwner.Company.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VesselOperator.Company.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HullCode)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div id="pager" class="scroll" style="text-align: center;">
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+
+    $(function () {
+
+        myGrid2 = $("#ListItems");
+        tableToGrid(myGrid2, {
+            rowNum:10, 
+            rowList:[10,20,30], 
+            pager: '#pager', 
+            sortname: 'id', 
+            viewrecords: false, 
+            sortorder: "desc", 
+            caption:"Vessels Search Results:",
+           colNames: ['Id', 'Vessel Name', 'Owner', 'Operator', 'IMO Hull Code'],
+                    colModel: [
+                        { name: 'Id', index: 'Id', width: 30, hidden: true },
+                        { name: 'Vessel_Name', index: 'Vessel_Name', width: 120 },
+                        { name: 'Owner', index: 'Owner', width: 120 },
+                        { name: 'Operator', index: 'Operator', width: 120 },
+                        { name: 'IMO_Hull_Code', index: 'IMO_Hull_Code', width: 120 } 
+                    ],
+            height: 450,    
+            autowidth: true,
+            forceFit: true,      
+            onSelectRow: function(rowid) {
+
+                var id = $(this).getCell(rowid,0);
+                //alert("-" + id + "-");
+                $("#data-grid").html("")
+                .load("@Url.Content("~/Vessels/VesselInfos/")" + $.trim(id));
+                
+            }
+        });
+
+        //autowidth: true,
+        //width: '100%'
+    });
+</script>
+

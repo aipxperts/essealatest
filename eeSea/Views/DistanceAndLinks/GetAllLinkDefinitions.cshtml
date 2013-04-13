@@ -1,0 +1,138 @@
+﻿@model eeSea.Models.Link
+@{
+    Layout = null;
+}
+<link href="@Url.Content("~/Content/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+
+
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/grid.locale-en.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")"></script>
+
+
+<!--Google API Javascript Reference-->
+<link
+    href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css"
+    rel="stylesheet" type="text/css" />
+<script type="text/javascript"
+    src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+
+
+
+@if (Model != null)
+{
+   
+    <style>
+        td, h2, tr, h4 {
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+    <h1 style="margin-left: 20px; text-decoration: underline; padding: 0px; margin-bottom: 20px;">@Html.DisplayFor(d => d.LocationA.City.Name) , @Html.DisplayFor(d => d.LocationA.City.Country.Name) <-> 
+    @Html.DisplayFor(d => d.LocationB.City.Name) , @Html.DisplayFor(d => d.LocationB.City.Country.Name)  </h1>
+    
+    <table>
+
+        <tr>
+            <td style="width: 30%; vertical-align: top;text-align:left;margin:0px;padding:0px;">
+                @if (Model.Definition != null)
+                {
+                    <table style="float: left; margin-left: 20px;margin-bottom: 20px;">
+                        <tr>
+                            <td style="width: 100px">
+                                <h2>From</h2>
+                            </td>
+                            <td style="width: 100px">@Html.DisplayFor(d => d.LocationA.City.Name)</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 100px">
+                                <h2>To</h2>
+                            </td>
+                            <td style="width: 100px">@Html.DisplayFor(d => d.LocationB.City.Name)</td>
+                            <td style="width: 100px"></td>
+                        </tr>
+
+                    </table>
+
+                    <table style="float: left; margin-left: 20px;">
+                        <tr style="float: left;">
+                            <td>
+                                <h2>"Counts of links " </h2>
+                            </td>
+                        </tr>
+                        <tr style="float: right; ">
+
+                            <td>
+                                <h2>@Html.Label(Model.Definition.Count.ToString())</h2>
+                            </td>
+
+                        </tr>
+                    </table>
+                
+                    <table style="float: left; margin-left: 20px;">
+                        @for (int i = 0; i < Model.Definition.Count; i++)
+                        {
+                            <tr>
+                                <td colspan="2" style="font-weight: bold;">
+                                    <h2>@Html.Label("Link  :  " + (i + 1).ToString())</h2>
+                                </td>
+                                <td></td>
+                            </tr>
+            
+                            <tr>
+                                <td>
+                                    <h3 style="margin:0px">Name : </h3>
+                                </td>
+                                <td style="margin-left: 20px">@Html.DisplayFor(modelItem => Model.Definition[i].Name)
+                                </td>
+                                @*  <td>Image
+                </td>*@
+                            </tr>
+            
+                            <tr>
+                                <td>
+                                    <h3 style="margin:0px">Distance : </h3>
+                                </td>
+                                <td style="margin-left: 20px">@Html.DisplayFor(modelItem => Model.Definition[i].Distance) @Html.Label(" km")
+                                </td>
+                                @*<td>Image
+                </td>*@
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h3 style="margin:0px">Color : </h3>
+                                </td>
+                                <td style="margin-left: 20px">@Html.Label(Enum.GetName(typeof(System.Drawing.KnownColor), Model.RandomColor[Model.Definition[i].Id]))
+                                </td>
+                                @*<td>Image
+                </td>*@
+                            </tr>
+            
+                            <tr>
+                                <td style="margin-bottom: 20px;" colspan="4">
+                                    <br />
+                                    <br />
+                                    <br />
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                }
+            </td>
+
+            <td style="width: 65%; vertical-align: top;">
+                <div>
+                @Html.Partial("DisplayGMap")
+                    </div>
+            </td>
+        </tr>
+    </table>
+    
+ 
+    <div id="pager" class="scroll" style="text-align: center;">
+    </div> 
+}
+

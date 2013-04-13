@@ -1,0 +1,62 @@
+﻿<script>
+    // following added for the main menu
+    (function ($) {
+        $(document).ready(function () {
+            $('#mainmenu').buttonset();
+
+            $('#mainmenu').ptMenu();
+
+        });
+    })(jQuery);
+		
+		
+
+</script>
+<table width="100%" align="center" border="0">
+    <tr>
+        <td height="100px">
+            <a href="../Main">
+                <img width="250px" src="@Url.Content("~/Content/images/logo.png")" /></a>
+        </td>
+        <td align="right" valign="top">
+            My Account | My Dashboard
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" align="center" height="55px" valign="top">
+            <ul id="mainmenu" class="menu">
+                <li><a href="#a" style="height: 48px">News Center</a> </li>
+                <li><a href="../Services/Index" style="height: 48px">Services &<br />
+                    Schedules </a>
+                    <ul>
+                        <li style="width: 200px"><a href="../Services/Index">Liner Services</a></li>
+                        <li style="width: 200px"><a href="#">Schedule Lookup</a></li>
+                        <li style="width: 200px"><a href="#">Build you own Service</a></li>
+                        <li style="width: 200px"><a href="#">The Numbers</a></li>
+                    </ul>
+                </li>
+                <li><a href="#a" style="height: 48px">Trade Lanes &<br />
+                    Commerce </a></li>
+                <li><a href="#a" style="height: 48px">Revenues &<br />
+                    Costs </a></li>
+                <li><a href="#a" style="height: 48px">Vessels &<br />
+                    Equipment </a>
+                    <ul>
+                        <li style="width: 150px"><a href="../Vessels/Index">Vessels lookup </a></li>
+                    </ul>
+                </li>
+                <li><a href="#a" style="height: 48px">Companies &<br />
+                    Personalities </a></li>
+                <li><a style="height: 48px" href="../Locations/Index">Locations</a>
+                    <ul>
+                        <li style="width: 150px"><a href="../Locations/Index">Location lookup </a></li>
+                        <li style="width: 150px"><a href="#">The numbers </a></li>
+                        <li style="width: 150px">
+                            <a href="../DistanceAndLinks/Index">Distances & links </a></li>
+                    </ul>
+                </li>
+                <li><a href="#a" style="height: 48px">Calendar</a></li>
+            </ul>
+        </td>
+    </tr>
+</table>

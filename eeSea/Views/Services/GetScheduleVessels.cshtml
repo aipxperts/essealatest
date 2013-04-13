@@ -1,0 +1,190 @@
+﻿@model eeSea.Models.ViewModels.ServiceViewModel
+@{
+    Layout = null;
+  
+}
+<link href="@Url.Content("~/Content/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/i18n/grid.locale-en.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")"></script>
+<table width="90%" height="520px" border="0" align="left" class=" ui-widget ui-widget-content ui-corner-all">
+    <tr>
+        <td colspan="5" valign="top" height="35px" align="left">
+            <h3 class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                @Html.DisplayFor(model => model.ServiceCode) / @Html.DisplayFor(model => model.ServiceName)</h3>
+        </td>
+    </tr>
+    <tr align="left">
+        <td width="20%" height="35px">
+            <b>Service Name</b>
+        </td>
+        <td width="20%">@Html.DisplayFor(model => model.ServiceName)
+        </td>
+        <td colspan="3" align="right">
+            <input type="button" class="btn-cmd ui-button ui-widget ui-state-default ui-corner-all "
+                value="<< Back" id="btnBack" />&nbsp;
+        </td>
+    </tr>
+    <tr align="left">
+        <td height="35px">
+            <b>Service Code</b>
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.ServiceCode)
+        </td>
+        <td>
+            <b></b>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr align="left">
+        <td height="35px">
+            <b>Frequency</b>
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Frequency)
+        </td>
+        <td>
+            <b></b>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr align="left">
+        <td height="35px">
+            <b>Valid From</b>
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.StartDate)
+        </td>
+        <td>
+            <b>Valid To</b>
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.EndDate)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <table width="100%">
+                <tr>
+                    <td>
+                    <table class="List" align="left" id="ListItems" width="100" border="1">
+                            <thead>
+                                <tr>
+                                     
+                                    <th scope="col">
+                                        Prio
+                                    </th>
+                                    <th scope="col">
+                                        Vessel
+                                    </th>
+                                    <th scope="col">
+                                        Owner
+                                    </th>
+                                    <th>
+                                        Operator
+                                    </th>
+                                    <th scope="col">
+                                        Capacity
+                                    </th>
+                                    <th>
+                                        From
+                                    </th>
+                                    <th scope="col">
+                                        To
+                                    </th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int i = 0;
+
+                                    List<eeSea.Models.ViewModels.VesselAttributes> scheduleVessels = (List<eeSea.Models.ViewModels.VesselAttributes>)ViewBag.scheduleVessels;
+         
+                                }
+                                @foreach (eeSea.Models.ViewModels.VesselAttributes item in scheduleVessels)
+                                {
+
+                                    
+              
+            
+                                    <tr id="@item.Id">
+                                     
+                                        <td>@Html.DisplayFor(modelItem => item.Priority)</td>
+                                        <td height="25px" align="center">@Html.DisplayFor(modelItem => item.VesselInfos.Name[0].Name)
+                                        </td>
+                                        <td height="25px" align="center">@Html.DisplayFor(modelItem => item.VesselInfos.Operator[0].Company.Name)
+                                        </td>
+                                        <td align="center">@Html.DisplayFor(modelItem => item.VesselInfos.Owner[0].Company.Name)
+                                        </td>
+                                        <td align="center">@Html.DisplayFor(modelItem => item.NominalCapacity)
+                                        </td>
+                                         <td>
+                                         
+                                         </td>
+                                         <td>
+                                         
+                                         </td>
+                                    </tr>
+                                       i = i + 1;
+                                }
+                                </tbody>
+                                 
+            </table><div id="pager" class="scroll" style="text-align: center;">
+</div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    //<![CDATA[
+
+    $(function () {
+
+        myGrid2 = $("#ListItems");
+        tableToGrid(myGrid2, {
+            rowNum:10, 
+            rowList:[10,20,30], 
+            pager: '#pager', 
+            sortname: 'id', 
+            viewrecords: false, 
+            sortorder: "desc", 
+            caption:"Current Vessels:",
+            
+            colNames: ['Prio','Vessel','Owner', 'Operator', 'Capacity', 'Start Date', 'End Date'],
+                    colModel: [
+                        { name: 'Prio', index: 'Prio', width: 50, align: 'center'   },
+                        { name: 'Vessel', index: 'Vessel', width: 120, align: 'center'  },
+                        { name: 'Owner', index: 'Owner', width: 120, align: 'center'  },
+                        { name: 'Operator', index: 'Operator' , width: 120 , align: 'center'    },
+                         { name: 'Capacity', index: 'Capacity' , width: 50 , align: 'center'    },
+                        { name: 'Start_Date', index: 'Start_Date' , width: 50  , align: 'center'    },
+                        { name: 'End_Date', index: 'End_Date' , width: 50, align: 'center'     },          ],       
+                  
+             autowidth: true,
+             height: 400,
+            forceFit: true,
+            
+            
+        });
+        $("#ListItems").trigger("reloadGrid"); 
+        //autowidth: true,
+        //width: '100%'
+
+          $('#btnBack').click(function () {
+            $.ajax({
+                url: encodeURI("@Url.Content("~/Services/ServiceInfos/" + @Model.Id + "")"),
+                success: function (data) {
+                    $('#data-grid').html(data);
+                }
+            });
+        });
+
+
+
+    });
+</script>

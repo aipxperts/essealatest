@@ -1,0 +1,246 @@
+﻿
+.main-box-header
+{
+     height:25px; margin-top:0px;margin-bottom:0px;
+      
+}
+
+.main-box-header a
+{
+    text-decoration:none;
+}
+.main-box-desc
+{
+     height:90px; margin-top:0px; padding:3px; text-align:left; font-style:normal;  
+}
+
+/**/
+
+div#sideToggleShow 
+{
+    background-color: #bed8da;
+    border: 0px solid #aaaaaa;
+    width: 16px;
+    height: 16px;
+    margin: 6px;
+    padding: 4px;
+    float: right;
+    cursor: pointer;
+    background:url('images/arrow_left.png')  
+}
+
+div#sideToggleHide
+{
+    background-color: #bed8da;
+    border: 0px solid #aaaaaa;
+    width: 16px;
+    height: 16px;
+    margin: 6px;
+    padding: 4px;
+    float: right;
+    cursor: pointer;
+    
+    background:url('images/arrow_right.png')  
+}
+
+/***** left navigation side bar *****/
+
+div#side
+{
+    border: 1px solid #aaaaaa;
+    border-width: 0 1px 0 1px;
+    width: 20%;
+    margin: 0;
+    padding: 0px;
+    float: right;
+    z-index: 100;
+    display: none;
+}
+
+.sideList li
+{
+    padding: 0 0 0 0;
+}
+
+/***** container *****/
+
+div#container
+{
+    width: 100%;
+    height: 600px;
+    clear: both;
+}
+
+/***** content *****/
+
+#toggle
+{
+    border: 1px solid #aaaaaa;
+    border-width: 0 1px 0 0;
+    height: 500px;
+    width: 100%;
+}
+
+
+/**/
+.ui-autocomplete-loading { background:url('images/indicator.gif') no-repeat right center }
+.ui-autocomplete-input {
+	 
+}
+
+.ui-autocomplete-input ul {
+	width: 100%;
+	list-style-position: outside;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.ui-autocomplete-input li {
+	margin: 0px;
+	padding: 2px 5px;
+	cursor: default;
+	display: block;
+	/* 
+	if width will be 100% horizontal scrollbar will apear 
+	when scroll mode will be used
+	*/
+	/*width: 100%;*/
+	font: menu;
+	 
+	/* 
+	it is very important, if line-height not setted or setted 
+	in relative units scroll will be broken in firefox
+	*/
+	line-height: 16px;
+	overflow: hidden;
+}
+
+ 
+
+.ac_odd {
+	background-color: #eee;
+}
+
+.ac_over {
+	background-color: #0A246A;
+	color: white;
+}
+/**/
+/* List Tables */
+table.List
+{
+    width: 60%;
+    border-collapse: collapse;
+    font-family: Verdana;
+     
+}
+ 
+table.List tr:nth-of-type(odd)
+{
+    background: #eee;
+}
+table.List th
+{
+    background: #333;
+    color: white;
+    font-weight: bold;
+}
+table.List td, th
+{
+    padding: 6px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+table.List tr.clickable:hover {
+   cursor: hand;
+   background-color:#ccc;
+}
+table.List tr.clickable:nth-of-type(odd):hover
+{
+    background: #ccc;
+}
+
+
+/****/
+/*!
+ * jquery.ui.potato.menu
+ * 
+ * Copyright (c) 2009-2010 makoto_kw, http://www.makotokw.com
+ * Licensed under the MIT license.
+ * 
+ * @author makoto_kw
+ * @version 1.1
+ */
+ul.potato-menu {
+	margin:0;
+	padding:0;
+	width:auto;
+	list-style:none;
+}
+.potato-menu:after {
+	content: " ";
+	display: block;
+	visibility: hidden;
+	clear: both;
+	height: 0.1px;
+	 
+	line-height: 0;
+}
+ul.potato-menu li.potato-menu-item {
+	 
+	position:relative;
+	list-style:none;
+	list-style-position:outside;
+	display:inline;
+	float:left;
+	width:12.5%;
+	
+	 
+	
+}
+ul.potato-menu li.potato-menu-item a {
+	display:block;
+	text-decoration:none;
+	white-space:nowrap;
+	outline:0;
+	text-align:left;
+}
+ul.potato-menu ul.potato-menu-group {
+	margin:0;
+	padding:0;
+	-webkit-padding-start:0;
+	-webkit-padding-end:0;
+	position:absolute;
+	display:none;
+	z-index:1000;
+	text-align:left;
+	
+}
+
+ 
+.menu{
+list-style:none;
+ 
+}
+
+ 
+ .search-dropdown
+    {
+        
+        width:180px;
+    }
+    
+.tblInfos td 
+{
+text-align:left;
+margin-left: auto;    
+    }
+    
+.titleTblInfos
+{
+    
+height:25px;
+vertical-align:middle;
+}

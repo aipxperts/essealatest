@@ -1,0 +1,282 @@
+﻿@model eeSea.Models.ViewModels.ServiceViewModel
+@{
+    Layout = null;
+  
+} 
+<script type="text/javascript" src="@Url.Content("~/Scripts/jcarousellite_1.0.1c4.js")"></script>
+ 
+ 
+<br />
+<script type="text/javascript">
+
+
+
+    var _gaq = _gaq || [];
+
+    _gaq.push(['_setAccount', 'UA-33927253-1']);
+
+    _gaq.push(['_setDomainName', 'eesea.com']);
+
+    _gaq.push(['_trackPageview']);
+
+
+
+    (function () {
+
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+
+    })();
+
+ 
+
+</script>
+<style>
+    .newsticker
+    {
+        width: 75%;
+        float: left;
+    }
+    .newsticker ul li
+    {
+        list-style: none;
+        display: block;
+        padding-bottom: 1px;
+        margin-bottom: 5px;
+    }
+    
+    .newsticker .info
+    {
+        float: left;
+        width: 100%;
+        text-align: justify;
+    }
+    .newsticker .info span.cat
+    {
+        display: block;
+        font-size: 10px;
+        color: #808080;
+    }
+    
+    .clear
+    {
+        clear: both;
+    }
+    .btn-cmd 
+    {
+     width: 160px;
+     margin-top:5px;
+     margin-right:5px;
+     }
+</style>
+    
+  
+ 
+<table width="90%" height="520px" border="0" align="left" class=" ui-widget ui-widget-content ui-corner-all">
+    <tr>
+        <td colspan="5" valign="top" height="35px" align="left">
+            <h3 class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                @Html.DisplayFor(model => model.ServiceCode) / @Html.DisplayFor(model => model.ServiceName)</h3>
+        </td>
+    </tr>
+    <tr  align="left">
+        <td width="20%" height="35px">
+            <b>Service Name</b>
+        </td>
+        <td width="20%">@Html.DisplayFor(model => model.ServiceName)
+        </td>
+        <td>
+        </td>
+        <td rowspan="2" align="right" valign="middle">
+        <input type="button" class="btn-cmd ui-button ui-widget ui-state-default ui-corner-all " value="Full Schedule" id="fullSchedule" />&nbsp;
+        <input type="button" class="btn-cmd ui-button ui-widget ui-state-default ui-corner-all "  value="Current Vessels" id="currentVessels" />&nbsp;
+        <br />
+        <input type="button" class="btn-cmd ui-button ui-widget ui-state-default ui-corner-all "  value="VSA & Slot Charters" id="vsa" />&nbsp;
+        <input type="button" class="btn-cmd ui-button ui-widget ui-state-default ui-corner-all "  value="&nbsp;&nbsp;&nbsp;&nbsp;" id="vsa" />&nbsp;
+        
+        </td>
+    </tr>
+    <tr  align="left">
+        <td height="35px">
+            <b>Service Code</b>
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.ServiceCode)
+        </td>
+        <td>
+            <b></b>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr  align="left">
+        <td height="35px">
+            <b>Valid From</b>
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.StartDate)
+        </td>
+        <td>
+            <b>Valid To</b>
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.EndDate)
+        </td>
+    </tr>
+    <tr  align="left">
+        <td height="35px">
+            <b>Avg eff Capacity</b>
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.AvgCapacity)
+        </td>
+        <td>
+            <b>VSA Partners</b>
+        </td>
+        <td>
+        @Html.DisplayFor(model => model.NoVSA)
+        </td>
+    </tr>
+    <tr  align="left">
+        <td height="35px">
+            <b>Round-trip</b>
+        </td>
+        <td>
+        </td>
+        <td>
+            &nbsp;
+        </td>
+        <td>
+            &nbsp;
+        </td>
+    </tr>
+    <tr  align="left">
+        <td valign="top" colspan="2">
+            <b>News ticker</b><br />
+            <br />
+            <div class="newsticker">
+                <ul>
+                    <li>
+                        <div class="info">
+                            03/11/2012: SundBoell made changes to the service
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="info">
+                            03/11/2012: CMA CGM announces changes to the FAL8 service, including new ports.
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="info">
+                            03/11/2012: CMA CGM says FAL8 coverage might change in the near futur
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </td>
+        <td colspan="2" align="right"  >
+          
+            @{
+
+                if (@Request.Url.Host != "localhost")
+                {
+                <div id="map_canvas" style="width: 100%; height: 350px"></div> 
+                <script type="text/javascript">
+                    var map;
+                    function initialize() {
+                                               /* Create Google Map */ 
+                    var myOptions = {
+                        zoom: 2,
+                        //center: new google.maps.LatLng(41, 19.6),
+                        mapTypeId: google.maps.MapTypeId.TERRAIN
+                    };
+				    var coordinates = new Array();
+                    map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+     
+                     
+                    @foreach (string item in (List<string>)ViewBag.ScheduleLocations)
+                    {
+                           
+                    <text>
+                     
+                    var vesselPath = new google.maps.Polyline({
+                                                            path: @item,
+                                                            strokeColor: 'blue',
+                                                            strokeOpacity: 1.0,
+                                                            strokeWeight: 2
+                                                            });
+                    vesselPath.setMap(map);
+                      
+                    </text>        
+                            
+                        
+                    }
+                   coordinates = @ViewBag.FullMapCoordinates;   
+                    
+                    var bounds = new google.maps.LatLngBounds();
+                    for (var i = 0; i < coordinates.length; i++) {
+                        bounds.extend(coordinates[i]);
+                    }
+                    map.fitBounds(bounds);
+                    
+                    }
+                    $(function () {
+                        initialize();
+                    });   
+                </script>
+                }
+            }
+        </td>
+    </tr>
+</table>
+
+ 
+<script type="text/javascript">
+    $(function () {
+        $(".newsticker").jCarouselLite({
+            vertical: true,
+            hoverPause: true,
+            visible: 3,
+            auto: 500,
+            speed: 1000
+        });
+
+        $('#fullSchedule').click(function () {
+            $.ajax({
+                url: encodeURI("@Url.Content("~/Services/GetFullSchedule/"+@Model.Id+"")"),
+                success: function (data) {
+                    $('#data-grid').html(data);
+                }
+            });
+        });
+
+         $('#currentVessels').click(function () {
+            $.ajax({
+                url: encodeURI("@Url.Content("~/Services/GetScheduleVessels/"+@Model.Id+"")"),
+                success: function (data) {
+                    $('#data-grid').html(data);
+                }
+            });
+        });
+        
+          $('#vsa').click(function () {
+            $.ajax({
+                url: encodeURI("@Url.Content("~/Services/GetScheduleVSA/"+@Model.Id+"")"),
+                success: function (data) {
+                    $('#data-grid').html(data);
+                }
+            });
+        });
+
+        
+    });
+</script>

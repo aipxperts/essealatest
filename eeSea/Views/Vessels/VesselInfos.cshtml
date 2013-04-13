@@ -1,0 +1,289 @@
+﻿@model eeSea.Models.Vessel
+@{
+    Layout = null;
+    var VesselDynamicAttributes = (List<eeSea.Models.ViewModels.VesselDynamicAttributesViewModel>)ViewBag.VesselDynamicAttributes;
+}
+<script src="@Url.Content("~/Scripts/jquery-1.8.3.js")" type="text/javascript"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.galleriffic.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.opacityrollover.js")"></script>
+<link href="@Url.Content("~/Content/Gallery.css")" rel="Stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/grid.locale-en.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")"></script>
+<script type="text/javascript">
+
+
+
+    var _gaq = _gaq || [];
+
+    _gaq.push(['_setAccount', 'UA-33927253-1']);
+
+    _gaq.push(['_setDomainName', 'eesea.com']);
+
+    _gaq.push(['_trackPageview']);
+
+
+
+    (function () {
+
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+
+    })();
+
+ 
+
+</script>
+<table border="0" align="left" width="100%">
+    <tr>
+        <td align="left" colspan="2" height="30px" valign="top">
+            <h3 class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                IMO hull code: @Model.HullCode
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <td width="40%" valign="top">
+            <table width="100%" border="0" align="left" class="tblInfos ui-widget ui-widget-content ui-corner-all">
+                <tr>
+                    <td align="left" colspan="2"  >
+                        <h4 class="titleTblInfos  ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                            Static attributes</h4>
+                    </td>
+                </tr>
+                <tr align="left" >
+                    <td width="30%" height="25px">
+                        <b>Shipyard</b>
+                    </td>
+                    <td>
+                        @Model.VesselName.Name
+                    </td>
+                </tr>
+                <tr align="left" >
+                    <td height="25px">
+                        <b>Hull start date</b>
+                    </td>
+                    <td>
+                        @Model.BuiltDate.ToString("dd/MM/yyyy")
+                    </td>
+                </tr>
+                <tr align="left" >
+                    <td height="25px">
+                        <b>Hull completion date</b>
+                    </td>
+                    <td>
+                        lorem ipsum
+                    </td>
+                </tr>
+                <tr align="left" >
+                    <td height="25px">
+                        <b>Vessel type</b>
+                    </td>
+                    <td>
+                        lorem ipsum
+                    </td>
+                </tr>
+                <tr align="left" >
+                    <td height="25px">
+                        <b>Length</b>
+                    </td>
+                    <td>
+                        @Model.Length meter
+                    </td>
+                </tr>
+                <tr align="left" >
+                    <td  height="25px">
+                        <b>Breadth</b>
+                    </td>
+                    <td>
+                        @Model.Breadth meter
+                    </td>
+                </tr>
+                <tr align="left" >
+                    <td  height="25px">
+                        <b>Draught</b>
+                    </td>
+                    <td>
+                        @Model.Draft meter
+                    </td>
+                </tr>
+                <tr align="left" >
+                    <td height="25px">
+                        <b>Deadweight</b>
+                    </td>
+                    <td>
+                        lorem ipsum tons
+                    </td>
+                </tr>
+                <tr align="left" >
+                    <td  height="25px">
+                        <b>Max speed</b>
+                    </td>
+                    <td>
+                        @Model.MaxSpeed knots
+                    </td>
+                </tr>
+                <tr align="left" >
+                    <td  height="25px">
+                        <b>Nominal capacity</b>
+                    </td>
+                    <td>
+                        @Model.NominalCapacity TEUs
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td valign="top" align="left" >
+            <div id="gallery" class="content">
+                <div class="slideshow-container">
+                    <div id="slideshow" class="slideshow">
+                    </div>
+                    <div id="thumbs" class="navigation">
+                        <ul class="thumbs noscript">
+                            <li><a class="thumb" name="optionalCustomIdentifier" href="@Url.Content("~/Content/vessels-imgs/11/1.jpg")" title="your image title">
+                                <img width="80px" src="@Url.Content("~/Content/vessels-imgs/11/1.jpg")" alt="your image title again for graceful degradation" />
+                            </a></li>
+                            <li><a class="thumb" name="optionalCustomIdentifier" href="@Url.Content("~/Content/vessels-imgs/11/2.jpg")" title="your image title">
+                                <img  width="80px" src="@Url.Content("~/Content/vessels-imgs/11/2.jpg")" alt="your image title again for graceful degradation" />
+                            </a></li>
+                            <li><a class="thumb" name="optionalCustomIdentifier" href="@Url.Content("~/Content/vessels-imgs/11/3.jpg")" title="your image title">
+                                <img   width="80px" src="@Url.Content("~/Content/vessels-imgs/11/3.jpg")" alt="your image title again for graceful degradation" />
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" height="240px" valign="top">
+            @{
+                int i = 0;
+                int total = (int)ViewBag.Total;  
+            }
+            <table class="List" align="left" id="ListItems">
+                <tr>
+                    <th scope="col">
+                        Version
+                    </th>
+                    <th scope="col">
+                        Vessel Name
+                    </th>
+                    <th scope="col">
+                        Valid From
+                    </th>
+                    <th scope="col">
+                        Owner Name
+                    </th>
+                    <th scope="col">
+                        Operator Name
+                    </th>
+                </tr>
+                @foreach (var item in (List<eeSea.Models.ViewModels.VesselDynamicAttributesViewModel>)ViewBag.VesselDynamicAttributes)
+                {
+                    <tr>
+                        <td>@(total - i)</td>
+                        <td>@Html.DisplayFor(modelItem => item.VesselName)</td>
+                        <td>@item.VesselNameDate.ToString("dd-MM-yyyy")</td>
+                        <td>@item.OwnerName</td>
+                        <td>@item.OperatorName</td>
+                    </tr>
+                     
+                       i = i + 1;
+
+
+                }
+            </table>
+        </td>
+    </tr>
+</table>
+<br />
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        // We only want these styles applied when javascript is enabled
+        $('div.navigation').css({ 'width': '2px', 'float': 'left' });
+        $('div.content').css('display', 'block');
+
+        // Initially set opacity on thumbs and add
+        // additional styling for hover effect on thumbs
+        var onMouseOutOpacity = 0.67;
+        $('#thumbs ul.thumbs li').opacityrollover({
+            mouseOutOpacity: onMouseOutOpacity,
+            mouseOverOpacity: 1.0,
+            fadeSpeed: 'fast',
+            exemptionSelector: '.selected'
+        });
+
+        // Initialize Advanced Galleriffic Gallery
+        var gallery = $('#thumbs').galleriffic({
+            delay: 2500,
+            numThumbs: 15,
+            preloadAhead: 10,
+            enableTopPager: true,
+            enableBottomPager: true,
+            maxPagesToShow: 7,
+            imageContainerSel: '#slideshow',
+            controlsContainerSel: '#controls',
+            captionContainerSel: '#caption',
+            loadingContainerSel: '#loading',
+            renderSSControls: true,
+            renderNavControls: true,
+            playLinkText: 'Play Slideshow',
+            pauseLinkText: 'Pause Slideshow',
+            prevLinkText: '&lsaquo; Previous Photo',
+            nextLinkText: 'Next Photo &rsaquo;',
+            nextPageLinkText: 'Next &rsaquo;',
+            prevPageLinkText: '&lsaquo; Prev',
+            enableHistory: false,
+            autoStart: false,
+            syncTransitions: true,
+            defaultTransitionDuration: 900,
+            onSlideChange: function (prevIndex, nextIndex) {
+                // 'this' refers to the gallery, which is an extension of $('#thumbs')
+                this.find('ul.thumbs').children()
+							.eq(prevIndex).fadeTo('fast', onMouseOutOpacity).end()
+							.eq(nextIndex).fadeTo('fast', 1.0);
+            },
+            onPageTransitionOut: function (callback) {
+                this.fadeTo('fast', 0.0, callback);
+            },
+            onPageTransitionIn: function () {
+                this.fadeTo('fast', 1.0);
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    //<![CDATA[
+
+    $(function () {
+
+        myGrid2 = $("#ListItems");
+        tableToGrid(myGrid2, {
+            rowNum:10, 
+            rowList:[10,20,30], 
+            pager: '#pager', 
+              
+            viewrecords: false, 
+            sortorder: "desc", 
+            height:220,
+            autowidth: true,            
+            forceFit: true,    
+            caption:"Dynamic attributes:",
+            colNames: ['Version', 'Vessel Name', 'Valid From', 'Owner Name', 'Operator Name'],
+                    colModel: [
+                        { name: 'Version', index: 'Version', width: 50 , align: 'center'   },
+                        { name: 'Vessel_Name', index: 'Vessel_Name', width: 90 , align: 'center'    },
+                        { name: 'Valid_From', index: 'Valid_From', width: 50  , align: 'center'   },
+                        { name: 'Owner_Name', index: 'Owner_Name' , width: 70 , align: 'center'   },
+                        { name: 'Operator_Name', index: 'Operator_Name', width: 70, align: 'center'     } 
+                    ],
+        });
+
+        //autowidth: true,
+        //width: '100%'
+    });
+</script>

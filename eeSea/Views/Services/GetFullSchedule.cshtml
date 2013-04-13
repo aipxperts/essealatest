@@ -1,0 +1,223 @@
+﻿@model eeSea.Models.ViewModels.ServiceViewModel
+@{
+    Layout = null;
+  
+}
+<link href="@Url.Content("~/Content/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/jquery-1.8.3.js")" type="text/javascript"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/i18n/grid.locale-en.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.jqGrid.js")"></script>
+<table width="90%" height="520px" border="0" align="left" class=" ui-widget ui-widget-content ui-corner-all">
+    <tr>
+        <td colspan="5" valign="top" height="35px" align="left">
+            <h3 class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                @Html.DisplayFor(model => model.ServiceCode) / @Html.DisplayFor(model => model.ServiceName)</h3>
+        </td>
+    </tr>
+    <tr align="left">
+        <td width="20%" height="35px">
+            <b>Service Name</b>
+        </td>
+        <td width="20%">@Html.DisplayFor(model => model.ServiceName)
+        </td>
+        <td colspan="3" align="right"> <input type="button" class="btn-cmd ui-button ui-widget ui-state-default ui-corner-all " value="<< Back" id="btnBack" />&nbsp;
+       
+        </td>
+    </tr>
+    <tr align="left">
+        <td height="35px">
+            <b>Service Code</b>
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.ServiceCode)
+        </td>
+        <td>
+            <b></b>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr align="left">
+        <td height="35px">
+            <b>Frequency</b>
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Frequency)
+        </td>
+        <td>
+            <b></b>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr align="left">
+        <td height="35px">
+            <b>Valid From</b>
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.StartDate)
+        </td>
+        <td>
+            <b>Valid To</b>
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.EndDate)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <table width="100%">
+                <tr>
+                    <td>
+                        <table class="List" align="left" id="ListItems" width="100" border="1">
+                            <thead>
+                                <tr>
+                                    <th>StringCode</th>
+                                    <th scope="col">
+                                        Prio
+                                    </th>
+                                    <th scope="col">
+                                        Current Port
+                                    </th>
+                                    <th scope="col">
+                                        Arrival DoW
+                                    </th>
+                                    <th>
+                                        Arival Offset
+                                    </th>
+                                    <th scope="col">
+                                        Departure DoW
+                                    </th>
+                                    <th>
+                                        Departure Offset
+                                    </th>
+                                    <th scope="col">
+                                        Time in Sea
+                                    </th>
+                                    <th scope="col" width="50px">
+                                        Distance to next port
+                                    </th>
+                                    <th scope="col">
+                                        Speed(knot)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int i = 0;
+                                     
+                                    IEnumerable<eeSea.Models.ViewModels.ScheduleLocation> scheduleLocations = (IEnumerable<eeSea.Models.ViewModels.ScheduleLocation>)ViewBag.ScheduleLocations;
+         
+                                }
+                                @foreach (eeSea.Models.ViewModels.ScheduleLocation item in scheduleLocations)
+                                {
+
+                                    
+              
+            
+                                    <tr id="@item.Id">
+                                        <td>@item.StringCode</td>
+                                        <td height="25px" align="center">@Html.DisplayFor(modelItem => item.Priority)
+                                        </td>
+                                        <td height="25px" align="center">@Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td align="center">@Html.DisplayFor(modelItem => item.ArrivalDoW)
+                                        </td>
+                                        <td align="center">@Html.DisplayFor(modelItem => item.ArivalOffset)
+                                        </td>
+                                        <td align="center">@Html.DisplayFor(modelItem => item.DepartureDoW)
+                                        </td>
+                                        <td align="center">@Html.DisplayFor(modelItem => item.DepartureOffset)
+                                        </td>
+                                        <td align="center">@Html.DisplayFor(modelItem => item.TimeInSea)
+                                        </td>
+                                        <td align="center">@Html.DisplayFor(modelItem => item.DistanceToNextPort) nm
+                                        </td>
+                                        <td align="center">@Html.DisplayFor(modelItem => item.Speed) knots
+                                        </td>
+                                    </tr>
+                                       i = i + 1;
+                                }
+                                </tbody>
+                                @*<tfoot>
+                                <tr align="center">
+                                    <td>
+                                        Total
+                                    </td>
+                                    <td>@i Ports
+                                    </td>
+                                    <td colspan="5">
+                                    </td>
+                                    <td>@String.Format("{0:0.00}", fullDistance) nm
+                                    </td>
+                                    <td>@String.Format("{0:0.00}", (totalSpeed / 11))
+                                    </td>
+                </tr>
+                </tfoot>*@
+            </table><div id="pager" class="scroll" style="text-align: center;">
+</div>
+        </td>
+        </tr> </table> </td></tr>
+</table>
+<script type="text/javascript">
+    //<![CDATA[
+
+    $(function () {
+
+        myGrid2 = $("#ListItems");
+        tableToGrid(myGrid2, {
+            rowNum:10, 
+            rowList:[10,20,30], 
+            pager: '#pager', 
+            sortname: 'id', 
+            viewrecords: false, 
+            sortorder: "desc", 
+            caption:"Full Schedule:",
+            colNames: ['StringCode','Priority','Current Port', 'Arrival DoW', 'Arival Offset', 'Departure DoW', 'Departure Offset', 'Time In Sea',
+                      'Distance To Next Port', 'Speed' ],
+                    colModel: [
+                        { name: 'StringCode', index: 'StringCode', hidden: true  },
+                        { name: 'Prio', index: 'Priority', width: 60, align: 'center', summaryType: 'count', summaryTpl: '<b>Total</b>' },
+                        { name: 'Current_Port', index: 'Current_Port', width: 80, align: 'center', summaryType: 'count', summaryTpl: '<b>{0} Ports</b>' },
+                        { name: 'Arrival_DoW', index: 'Arrival_DoW' , width: 120 , align: 'center'    },
+                        { name: 'Arival_Offset', index: 'Arival_Offset' , width: 80  , align: 'center'    },
+                        { name: 'Departure_DoW', index: 'Departure_DoW' , width: 120, align: 'center'     },
+                        { name: 'Departure_Offset', index: 'Departure_Offset'  , width: 80 , align: 'center'  },
+                        { name: 'Time_in_Sea', index: 'Time_in_Sea' , width: 80, align: 'center'    } ,
+                        { name: 'Distance_to_next_port', index: 'Distance_to_next_port', width: 120, align: 'center', summaryType: 'sum', summaryTpl: '<b>{0} nm</b>' },
+                        { name: 'Speed(knot)', index: 'Speed(knot)', width: 86, align: 'center', summaryType: 'avg', summaryTpl: '<b>{0} knots</b>' } 
+                    ],       
+             autowidth: true,
+             height: 400,
+            forceFit: true,
+            grouping: true,
+            groupingView: {
+                groupField: ['StringCode'],
+            round: 2,
+            groupSummary: [true],
+            groupColumnShow: [false],
+            groupText : [''] ,
+            groupCollapse: false,
+            groupOrder: ['asc']
+            }, 
+               caption: "Summary footers"
+                    
+            
+        });
+        $("#ListItems").trigger("reloadGrid"); 
+        //autowidth: true,
+        //width: '100%'
+
+          $('#btnBack').click(function () {
+            $.ajax({
+                url: encodeURI("@Url.Content("~/Services/ServiceInfos/"+@Model.Id+"")"),
+                success: function (data) {
+                    $('#data-grid').html(data);
+                }
+            });
+        });
+
+
+
+    });
+</script>
